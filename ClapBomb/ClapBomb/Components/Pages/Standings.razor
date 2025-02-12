@@ -1,0 +1,91 @@
+@page "/standings"
+
+@inject IHttpClientFactory _clientFactory
+@inject NavigationManager NavManager
+@inject TeamService teamService
+
+<PageTitle>Standings</PageTitle>
+<h3>Standings</h3>
+
+@if (!string.IsNullOrWhiteSpace(errorString))
+{
+    <div class="h2">@errorString</div>
+}
+else if (standing is null)
+{
+    <div class="h4">Loading...</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Team</th>
+                <th>Logo</th>
+                <th>Abbreviation</th>
+                <th>Games Played</th>
+                <th>Points</th>
+                <th>Wins</th>
+                <th>Losses</th>
+                <th>OTL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in standing.standings)
+            {
+                <tr>
+                    <td><a href="/team/@(s.teamAbbrev._default)" data-enhance-nav="false">@s.teamName._default</a></td>
+                    <td><img src="@s.teamLogo" height="100"/></td>
+                    <td>@s.teamAbbrev._default</td>
+                    <td>@s.gamesPlayed</td>
+                    <td>@s.points</td>
+                    <td>@s.wins</td>
+                    <td>@s.losses</td>
+                    <td>@s.otLosses</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    StandingsRoot standing;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Longer way of sending requests
+        // var request = new HttpRequestMessage(HttpMethod.Get, "https://api-web.nhle.com/v1/standings/now");
+
+        // var client = _clientFactory.CreateClient();
+
+        // HttpResponseMessage response = await client.SendAsync(request);
+
+        // if (response.IsSuccessStatusCode)
+        // {
+        //     standing = await response.Content.ReadFromJsonAsync<StandingsRoot>();
+        //     errorString = null;
+        // }
+        // else
+        // {
+        //     errorString = $"There was an error getting our standings: {response.ReasonPhrase}";
+        // }
+
+        standing = await teamService.GetStandings();
+        errorString = teamService.errorString;
+
+        // Shorter way of sending requests
+        // var client = _clientFactory.CreateClient("NHLWebAPI");
+
+        // try
+        // {
+        //     standing = await client.GetFromJsonAsync<StandingsRoot>("v1/standings/now");
+        //     errorString = null;
+        // }
+        // catch (Exception ex)
+        // {
+        //     errorString = $"There was an error getting our standings: { ex.Message }";
+        // }
+    }
+
+}

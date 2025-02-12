@@ -1,6 +1,7 @@
 using ClapBomb.Client.Pages;
 using ClapBomb.Components;
 using MudBlazor.Services;
+using ClapBomb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,20 @@ builder.Services.AddMudServices();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient("NHLWebAPI", c =>
+{
+    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("NHLWebAPI"));
+});
+
+builder.Services.AddHttpClient("NHLStatsAPI", c =>
+{
+    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("NHLStatsAPI"));
+});
+
+builder.Services.AddSingleton<TeamService>();
 
 var app = builder.Build();
 
