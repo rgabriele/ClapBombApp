@@ -1,10 +1,8 @@
-﻿namespace ClapBomb.Models.Rankings
+﻿namespace ClapBomb.Models.Rankings;
+
+public class Placename
 {
-    public class Placename
-    {
 
-        public string _default { get; set; }
-        public string fr { get; set; }
-    }
-
+    public string _default { get; set; }
+    public string fr { get; set; }
 }
