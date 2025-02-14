@@ -17,68 +17,41 @@ else if (roster is null)
 else
 {
     <h3>Forwards</h3>
-    //TODO: Change player tables to Grid component
-    <table class="table table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Position</th>
-                <th>Headshot</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var r in roster.forwards)
-            {
-                <tr>
-                    <td>@(GetForwardPosition(r.positionCode))</td>
-                    <td><img src="@r.headshot" height="100" /></td>
-                    <td>@(r.firstName._default + " " + r.lastName._default)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <MudDataGrid T="Forward" Context="player" Items="roster.forwards">
+        <Columns>
+            <PropertyColumn Property="x => GetForwardPosition(x.positionCode)" Title="Position"></PropertyColumn>
+            <TemplateColumn Title="Headshot">
+                <CellTemplate>
+                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"></MudImage>
+                </CellTemplate>
+            </TemplateColumn>
+            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"></PropertyColumn>
+        </Columns>
+    </MudDataGrid>
 
     <h3>Defensemen</h3>
-    <table class="table table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Position</th>
-                <th>Headshot</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var r in roster.defensemen)
-            {
-                <tr>
-                    <td>@(GetDmanPosition(r.shootsCatches))</td>
-                    <td><img src="@r.headshot" height="100" /></td>
-                    <td>@(r.firstName._default + " " + r.lastName._default)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <MudDataGrid T="Defenseman" Context="player" Items="roster.defensemen">
+        <Columns>
+            <PropertyColumn Property="x => GetDmanPosition(x.positionCode)" Title="Position"></PropertyColumn>
+            <TemplateColumn Title="Headshot">
+                <CellTemplate>
+                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"></MudImage>
+                </CellTemplate>
+            </TemplateColumn>
+            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"></PropertyColumn>
+        </Columns>
+    </MudDataGrid>
 
     <h3>Goalies</h3>
-    <table class="table table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Position</th>
-                <th>Headshot</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var r in roster.goalies)
-            {
-                <tr>
-                    <td>@r.positionCode</td>
-                    <td><img src="@r.headshot" height="100" /></td>
-                    <td>@(r.firstName._default + " " + r.lastName._default)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <MudDataGrid T="Goaly" Context="player" Items="roster.goalies">
+        <Columns>
+            <PropertyColumn Property="x => x.positionCode" Title="Position"></PropertyColumn>
+            <TemplateColumn Title="Headshot">
+                <CellTemplate>
+                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"></MudImage>
+                </CellTemplate>
+            </TemplateColumn>
+            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"></PropertyColumn>
+        </Columns>
+    </MudDataGrid>
 }
-
-
