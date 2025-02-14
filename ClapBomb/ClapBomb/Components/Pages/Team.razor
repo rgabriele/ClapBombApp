@@ -20,7 +20,7 @@ else
     <MudDataGrid T="Forward" Context="player" Items="roster.forwards">
         <Columns>
             <PropertyColumn Property="x => GetForwardPosition(x.positionCode)" Title="Position"></PropertyColumn>
-            <TemplateColumn>
+            <TemplateColumn Title="Headshot">
                 <CellTemplate>
                     <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"></MudImage>
                 </CellTemplate>
