@@ -17,6 +17,19 @@ else if (roster is null)
 else
 {
     <h3>Forwards</h3>
+    <MudDataGrid T="Forward" Context="player" Items="roster.forwards">
+        <Columns>
+            <PropertyColumn Property="x => GetForwardPosition(x.positionCode)" Title="Position"></PropertyColumn>
+            <TemplateColumn>
+                <CellTemplate>
+                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"></MudImage>
+                </CellTemplate>
+            </TemplateColumn>
+            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"></PropertyColumn>
+        </Columns>
+    </MudDataGrid>
+
+    <h3>Forwards</h3>
     //TODO: Change player tables to Grid component
     <table class="table table-striped">
         <thead class="table-dark">
