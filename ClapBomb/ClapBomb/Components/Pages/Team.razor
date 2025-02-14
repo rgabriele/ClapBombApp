@@ -19,39 +19,39 @@ else
     <h3>Forwards</h3>
     <MudDataGrid T="Forward" Context="player" Items="roster.forwards">
         <Columns>
-            <PropertyColumn Property="x => GetForwardPosition(x.positionCode)" Title="Position"></PropertyColumn>
+            <PropertyColumn Property="x => GetForwardPosition(x.positionCode)" Title="Position"/>
             <TemplateColumn Title="Headshot">
                 <CellTemplate>
-                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"></MudImage>
+                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"/>
                 </CellTemplate>
             </TemplateColumn>
-            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"></PropertyColumn>
+            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"/>
         </Columns>
     </MudDataGrid>
 
     <h3>Defensemen</h3>
     <MudDataGrid T="Defenseman" Context="player" Items="roster.defensemen">
         <Columns>
-            <PropertyColumn Property="x => GetDmanPosition(x.positionCode)" Title="Position"></PropertyColumn>
+            <PropertyColumn Property="x => GetDmanPosition(x.positionCode)" Title="Position"/>
             <TemplateColumn Title="Headshot">
                 <CellTemplate>
-                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"></MudImage>
+                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"/>
                 </CellTemplate>
             </TemplateColumn>
-            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"></PropertyColumn>
+            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"/>
         </Columns>
     </MudDataGrid>
 
     <h3>Goalies</h3>
     <MudDataGrid T="Goaly" Context="player" Items="roster.goalies">
         <Columns>
-            <PropertyColumn Property="x => x.positionCode" Title="Position"></PropertyColumn>
+            <PropertyColumn Property="x => x.positionCode" Title="Position"/>
             <TemplateColumn Title="Headshot">
                 <CellTemplate>
-                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"></MudImage>
+                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"/>
                 </CellTemplate>
             </TemplateColumn>
-            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"></PropertyColumn>
+            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"/>
         </Columns>
     </MudDataGrid>
 }
