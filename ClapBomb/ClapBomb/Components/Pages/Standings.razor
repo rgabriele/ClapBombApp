@@ -17,6 +17,29 @@ else if (standing is null)
 }
 else
 {
+    <MudDataGrid T="Standing" Context="player" Items="standing.standings">
+        <Columns>
+            <TemplateColumn Title="Team">
+                <CellTemplate>
+                    @{
+                    var teamURL = $"/team/{context.Item.teamAbbrev._default}";
+                    }
+                    <MudLink Href="@teamURL">@context.Item.teamName._default</MudLink>
+                </CellTemplate>
+            </TemplateColumn>
+            <TemplateColumn Title="Logo">
+                <CellTemplate>
+                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.teamLogo"></MudImage>
+                </CellTemplate>
+            </TemplateColumn>
+            <PropertyColumn Property="x => x.teamAbbrev._default" Title="Abbreviation"/>
+            <PropertyColumn Property="x => x.gamesPlayed" Title="Games Played"/>
+            <PropertyColumn Property="x => x.points" Title="Points"/>
+            <PropertyColumn Property="x => x.wins" Title="Wins"/>
+            <PropertyColumn Property="x => x.losses" Title="Losses"/>
+            <PropertyColumn Property="x => x.otLosses" Title="OTL"/>
+        </Columns>
+    </MudDataGrid>
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>
