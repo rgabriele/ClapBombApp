@@ -1,5 +1,4 @@
-﻿namespace ClapBomb.Models.Rankings;
-
+﻿namespace ClapBomb.Models.Standings;
 
 public class Standing
 {
