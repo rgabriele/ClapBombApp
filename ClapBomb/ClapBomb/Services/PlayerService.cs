@@ -1,14 +1,36 @@
 ﻿using ClapBomb.Models.GameLog;
+using ClapBomb.Models.PlayerInfo;
 
 namespace ClapBomb.Services;
 
 public class PlayerService
 {
     LogRoot gameLog;
+    PlayerRoot playerInfo;
     HttpClient webApiClient = new HttpClient();
     HttpClient nhlStatsApiClient = new HttpClient();
 
     public string errorString { get; private set; }
+
+    /// <summary>
+    /// Gets information for a specific player.
+    /// </summary>
+    /// <param name="playerId">The id of the player.</param>
+    /// <returns></returns>
+    public async Task<PlayerRoot> GetPlayerInfo(int playerId)
+    {
+        try
+        {
+            playerInfo = await webApiClient.GetFromJsonAsync<PlayerRoot>($"v1/player/{playerId}/landing");
+            errorString = null;
+            return playerInfo;
+        }
+        catch (Exception ex)
+        {
+            errorString = $"There was an error getting the player information: {ex.Message}";
+        }
+        return null;
+    }
 
     /// <summary>
     /// Gets the game log of a player.
