@@ -1,4 +1,5 @@
 ﻿using ClapBomb.Models.GameLog;
+using ClapBomb.Models.GameLogCurrent;
 using ClapBomb.Models.PlayerInfo;
 
 namespace ClapBomb.Services;
@@ -6,6 +7,7 @@ namespace ClapBomb.Services;
 public class PlayerService
 {
     LogRoot gameLog;
+    GameLogCurrentRoot gameLogCurrent;
     PlayerRoot playerInfo;
     HttpClient webApiClient = new HttpClient();
     HttpClient nhlStatsApiClient = new HttpClient();
@@ -51,6 +53,26 @@ public class PlayerService
         catch (Exception ex)
         {
             errorString = $"There was an error getting the game log: {ex.Message}";
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Gets the game log of a player as of the current moment.
+    /// </summary>
+    /// <param name="playerId"></param>
+    /// <returns></returns>
+    public async Task<GameLogCurrentRoot> GetGameLogCurrent(int playerId)
+    {
+        try
+        {
+            gameLogCurrent = await webApiClient.GetFromJsonAsync<GameLogCurrentRoot>($"v1/player/{playerId}/game-log/now");
+            errorString = null;
+            return gameLogCurrent;
+        }
+        catch (Exception ex)
+        {
+            errorString = $"There was an error getting the current game log: {ex.Message}";
         }
         return null;
     }
