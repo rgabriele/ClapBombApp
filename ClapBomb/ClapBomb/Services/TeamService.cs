@@ -1,5 +1,5 @@
-﻿using ClapBomb.Models.Rankings;
-using ClapBomb.Models.Roster;
+﻿using ClapBomb.Models.Roster;
+using ClapBomb.Models.Standings;
 
 namespace ClapBomb.Services;
 public class TeamService

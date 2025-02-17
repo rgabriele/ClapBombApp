@@ -1,0 +1,75 @@
+﻿@page "/player/{playerId}"
+@using ClapBomb.Models.PlayerInfo
+@using ClapBomb.Models.GameLogCurrent
+
+@inject NavigationManager navManager
+@inject PlayerService playerService
+
+<PageTitle>Player</PageTitle>
+
+@if (!string.IsNullOrWhiteSpace(errorString))
+{
+    <div class="h2">@errorString</div>
+}
+else if (player is null)
+{
+    <div class="h4">Loading...</div>
+}
+else
+{
+    <h3>@($"{player.firstName._default} {player.lastName._default}")</h3>
+    <h4>L5 Game Log</h4>
+    <MudTable Items="@player.last5Games">
+        <HeaderContent>
+            <MudTh>Date</MudTh>
+            <MudTh>Opp</MudTh>
+            <MudTh>G</MudTh>
+            <MudTh>A</MudTh>
+            <MudTh>P</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Date">@context.gameDate</MudTd>
+            <MudTd DataLabel="Opp">@context.opponentAbbrev</MudTd>
+            <MudTd DataLabel="G">@context.goals</MudTd>
+            <MudTd DataLabel="A">@context.assists</MudTd>
+            <MudTd DataLabel="P">@context.points</MudTd>
+        </RowTemplate>
+    </MudTable>
+
+    <h4>Game Log</h4>
+    <MudTable Items="@gameLogCurrent.gameLog">
+        <HeaderContent>
+            <MudTh>Date</MudTh>
+            <MudTh>Opp</MudTh>
+            <MudTh>G</MudTh>
+            <MudTh>A</MudTh>
+            <MudTh>P</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Date">@context.gameDate</MudTd>
+            <MudTd DataLabel="Opp">@context.opponentAbbrev</MudTd>
+            <MudTd DataLabel="G">@context.goals</MudTd>
+            <MudTd DataLabel="A">@context.assists</MudTd>
+            <MudTd DataLabel="P">@context.points</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+}
+
+@code {
+    [Parameter] public string playerId { get; set; }
+    PlayerRoot player;
+    GameLogCurrentRoot gameLogCurrent;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        player = await playerService.GetPlayerInfo(playerId);
+        errorString = playerService.errorString;
+
+        gameLogCurrent = await playerService.GetGameLogCurrent(playerId);
+        errorString = playerService.errorString;
+    }
+}

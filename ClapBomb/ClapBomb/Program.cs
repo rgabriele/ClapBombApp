@@ -26,6 +26,7 @@ builder.Services.AddHttpClient("NHLStatsAPI", c =>
 });
 
 builder.Services.AddSingleton<TeamService>();
+builder.Services.AddSingleton<PlayerService>();
 
 var app = builder.Build();
 

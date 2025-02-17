@@ -1,4 +1,4 @@
-using ClapBomb.Models.Rankings;
+using ClapBomb.Models.Standings;
 
 namespace ClapBomb.Components.Pages;
 

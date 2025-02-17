@@ -12,6 +12,12 @@ public class PlayerService
     HttpClient webApiClient = new HttpClient();
     HttpClient nhlStatsApiClient = new HttpClient();
 
+    public PlayerService()
+    {
+        webApiClient.BaseAddress = new Uri("https://api-web.nhle.com/");
+        nhlStatsApiClient.BaseAddress = new Uri("https://api.nhle.com/stats/rest/");
+    }
+
     public string errorString { get; private set; }
 
     /// <summary>
@@ -19,7 +25,7 @@ public class PlayerService
     /// </summary>
     /// <param name="playerId">The id of the player.</param>
     /// <returns></returns>
-    public async Task<PlayerRoot> GetPlayerInfo(int playerId)
+    public async Task<PlayerRoot> GetPlayerInfo(string playerId)
     {
         try
         {
@@ -62,7 +68,7 @@ public class PlayerService
     /// </summary>
     /// <param name="playerId"></param>
     /// <returns></returns>
-    public async Task<GameLogCurrentRoot> GetGameLogCurrent(int playerId)
+    public async Task<GameLogCurrentRoot> GetGameLogCurrent(string playerId)
     {
         try
         {

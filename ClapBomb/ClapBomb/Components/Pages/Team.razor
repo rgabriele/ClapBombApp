@@ -3,7 +3,8 @@
 @inject IHttpClientFactory _clientFactory
 @inject TeamService teamService
 
-<PageTitle>Team</PageTitle>
+<PageTitle>@teamAbbreviation</PageTitle>
+
 <h3>@teamAbbreviation</h3>
 
 @if (!string.IsNullOrWhiteSpace(errorString))
@@ -25,7 +26,14 @@ else
                     <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"/>
                 </CellTemplate>
             </TemplateColumn>
-            <PropertyColumn Property="x => x.firstName._default + ' ' + x.lastName._default" Title="Name"/>
+            <TemplateColumn Title="Name">
+                <CellTemplate>
+                    @{
+                        var playerURL = $"/player/{context.Item.id}";
+                    }
+                    <MudLink Href="@playerURL">@($"{context.Item.firstName._default} {context.Item.lastName._default}")</MudLink>
+                </CellTemplate>
+            </TemplateColumn>
         </Columns>
     </MudDataGrid>
 
