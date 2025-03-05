@@ -1,7 +1,10 @@
-﻿namespace ClapBomb.Models.PlayerInfo;
+﻿using System.Text.Json.Serialization;
+
+namespace ClapBomb.Models.PlayerInfo;
 
 public class Teamplacenamewithpreposition1
-    {
-        public string _default { get; set; }
-        public string fr { get; set; }
-    }
+{
+    [JsonPropertyName("default")]
+    public string _default { get; set; }
+    public string fr { get; set; }
+}

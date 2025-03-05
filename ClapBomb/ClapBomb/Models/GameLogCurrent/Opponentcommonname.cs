@@ -1,7 +1,10 @@
-﻿namespace ClapBomb.Models.GameLogCurrent;
+﻿using System.Text.Json.Serialization;
+
+namespace ClapBomb.Models.GameLogCurrent;
 
 public class Opponentcommonname
 {
+    [JsonPropertyName("default")]
     public string _default { get; set; }
     public string es { get; set; }
     public string fi { get; set; }

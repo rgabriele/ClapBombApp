@@ -1,7 +1,10 @@
-﻿namespace ClapBomb.Models.GameLogCurrent;
+﻿using System.Text.Json.Serialization;
+
+namespace ClapBomb.Models.GameLogCurrent;
 
 public class Commonname
 {
+    [JsonPropertyName("default")]
     public string _default { get; set; }
     public string cs { get; set; }
     public string de { get; set; }
