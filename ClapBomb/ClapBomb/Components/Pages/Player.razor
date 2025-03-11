@@ -21,7 +21,7 @@ else
         <MudAvatar>
             <MudImage Src="@(player.headshot)"></MudImage>
         </MudAvatar>
-    <h3>@($"{player.firstName._default} {player.lastName._default}")</h3>
+        <h3>@($"{player.firstName._default} {player.lastName._default}")</h3>
     </MudStack>
     <h4>L5 Game Log</h4>
     <MudTable Items="@player.last5Games">
@@ -40,6 +40,8 @@ else
             <MudTd DataLabel="P">@context.points</MudTd>
         </RowTemplate>
     </MudTable>
+    <h4>L5 Shots per game:</h4>
+    <p>@l5ShotsPerGame</p>
 
     <h4>Game Log</h4>
     <MudTable Items="@gameLogCurrent.gameLog">
@@ -61,6 +63,8 @@ else
             <MudTablePager />
         </PagerContent>
     </MudTable>
+
+    <h4>Shots per game:</h4><p>@shotsPerGame</p>
 }
 
 @code {
@@ -68,6 +72,10 @@ else
     PlayerRoot player;
     GameLogCurrentRoot gameLogCurrent;
     string errorString;
+    double shotsPerGame;
+    double l5ShotsPerGame;
+    int totalShots = 0;
+    int l5TotalShots = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -76,5 +84,17 @@ else
 
         gameLogCurrent = await playerService.GetGameLogCurrent(playerId);
         errorString = playerService.errorString;
+
+        foreach (Models.GameLogCurrent.Gamelog game in gameLogCurrent.gameLog)
+        {
+            totalShots += game.shots;
+        }
+        shotsPerGame = Math.Round((double) totalShots / gameLogCurrent.gameLog.Length, 3);
+
+        foreach (Last5games games in player.last5Games)
+        {
+            l5TotalShots += games.shots;
+        }
+        l5ShotsPerGame = Math.Round((double)l5TotalShots / 5, 3);
     }
 }
