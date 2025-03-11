@@ -17,7 +17,12 @@ else if (player is null)
 }
 else
 {
+    <MudStack Row="true" AlignItems="AlignItems.Center">
+        <MudAvatar>
+            <MudImage Src="@(player.headshot)"></MudImage>
+        </MudAvatar>
     <h3>@($"{player.firstName._default} {player.lastName._default}")</h3>
+    </MudStack>
     <h4>L5 Game Log</h4>
     <MudTable Items="@player.last5Games">
         <HeaderContent>

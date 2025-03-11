@@ -23,7 +23,9 @@ else
             <PropertyColumn Property="x => GetForwardPosition(x.positionCode)" Title="Position"/>
             <TemplateColumn Title="Headshot">
                 <CellTemplate>
-                    <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot"/>
+                    <MudAvatar>
+                        <MudImage Class="rounded-lg ma-4" Height="75" Src="@context.Item.headshot" />
+                    </MudAvatar>
                 </CellTemplate>
             </TemplateColumn>
             <TemplateColumn Title="Name">
