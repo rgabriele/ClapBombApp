@@ -5,6 +5,10 @@
 @inject NavigationManager navManager
 @inject PlayerService playerService
 
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
 <PageTitle>Player</PageTitle>
 
 @if (!string.IsNullOrWhiteSpace(errorString))
@@ -43,6 +47,8 @@ else
     <h4>L5 Shots per game:</h4>
     <p>@l5ShotsPerGame</p>
 
+    <MudChart ChartType="ChartType.Bar" ChartSeries="@shotSeries" XAxisLabels="@XAxisLabels"/>
+
     <h4>Game Log</h4>
     <MudTable Items="@gameLogCurrent.gameLog">
         <HeaderContent>
@@ -76,6 +82,8 @@ else
     double l5ShotsPerGame;
     int totalShots = 0;
     int l5TotalShots = 0;
+    List<ChartSeries> shotSeries = new List<ChartSeries>();
+    public string[] XAxisLabels = { "1", "2", "3", "4", "5" };
 
     protected override async Task OnInitializedAsync()
     {
@@ -91,10 +99,14 @@ else
         }
         shotsPerGame = Math.Round((double) totalShots / gameLogCurrent.gameLog.Length, 3);
 
+        double[] data = { };
         foreach (Last5games games in player.last5Games)
         {
             l5TotalShots += games.shots;
+            data.Append(games.shots);
         }
         l5ShotsPerGame = Math.Round((double)l5TotalShots / 5, 3);
+        var shots = new ChartSeries() { Name = "L5 Shots", Data = data };
+        shotSeries.Add(shots);
     }
 }
